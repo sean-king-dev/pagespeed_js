@@ -133,3 +133,21 @@ body {
     border-top: 3px solid transparent;
     animation: spin 1s linear infinite;
   }
+
+  /* Add the loading animation styles */
+.loading {
+    margin-top: 20px;
+    color: #007bff; /* Initial color */
+    animation: colorChange 2s infinite alternate;
+  }
+  
+  /* Keyframes for changing text color */
+  @keyframes colorChange {
+    0% {
+      color: #007bff; /* Start color (blue) */
+    }
+    100% {
+      color: coral; /* End color (coral) */
+    }
+  }
+  
