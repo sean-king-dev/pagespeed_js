@@ -90,23 +90,58 @@ function runPageSpeedTest() {
 
 runPageSpeedTest();
 
+// function displayPastResults() {
+//   const pastResultsDiv = document.getElementById("pastResults");
+//   const pastScores = JSON.parse(localStorage.getItem("pastScores")) || [];
+
+//   if (pastScores.length === 0) {
+//     pastResultsDiv.innerHTML = "<p>No past results available.</p>";
+//     return;
+//   }
+
+//   let pastResultsHTML = "<ul>";
+//   pastScores.forEach((score) => {
+//     pastResultsHTML += `<li>URL: ${score.url}, Score: ${score.score}, Date: ${score.date}, Device: ${score.device}, Throttling: ${score.throttling}, Location: ${score.location}</li>`;
+//   });
+//   pastResultsHTML += "</ul>";
+
+//   pastResultsDiv.innerHTML = pastResultsHTML;
+// }
+
 function displayPastResults() {
-  const pastResultsDiv = document.getElementById("pastResults");
-  const pastScores = JSON.parse(localStorage.getItem("pastScores")) || [];
+    const pastResultsDiv = document.getElementById('pastResults');
+    const pastScores = JSON.parse(localStorage.getItem('pastScores')) || [];
 
-  if (pastScores.length === 0) {
-    pastResultsDiv.innerHTML = "<p>No past results available.</p>";
-    return;
-  }
+    if (pastScores.length === 0) {
+        pastResultsDiv.innerHTML = "<p>No past results available.</p>";
+        return;
+    }
 
-  let pastResultsHTML = "<ul>";
-  pastScores.forEach((score) => {
-    pastResultsHTML += `<li>URL: ${score.url}, Score: ${score.score}, Date: ${score.date}, Device: ${score.device}, Throttling: ${score.throttling}, Location: ${score.location}</li>`;
-  });
-  pastResultsHTML += "</ul>";
+    let pastResultsHTML = '<h2>Past Results:</h2>';
+    pastScores.forEach(score => {
+        pastResultsHTML += `<div class="pastResult">
+                                <p>URL: ${score.url}</p>
+                                <p>Score: ${score.score}</p>
+                                <p>Date: ${score.date}</p>
+                                <p>Device: ${score.device}</p>
+                                <p>Throttling: ${score.throttling}</p>
+                                <p>Location: ${score.location}</p>`;
 
-  pastResultsDiv.innerHTML = pastResultsHTML;
+        // Display metrics if available
+        if (score.metrics) {
+            pastResultsHTML += '<p>Metrics:</p>';
+            Object.keys(score.metrics).forEach(metricKey => {
+                const metric = score.metrics[metricKey];
+                pastResultsHTML += `<p>${metric.title}: ${metric.value}</p>`;
+            });
+        }
+
+        pastResultsHTML += '</div>';
+    });
+
+    pastResultsDiv.innerHTML = pastResultsHTML;
 }
+
 
 function downloadCSV() {
   const pastScores = JSON.parse(localStorage.getItem("pastScores")) || [];
