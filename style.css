@@ -53,8 +53,9 @@ body {
     box-sizing: border-box;
   }
 
-  #pastsResults p {
+  #pastResults p {
     width: 100%;
+    border-bottom: 2px skyblue;
   }
 
   h2 {
