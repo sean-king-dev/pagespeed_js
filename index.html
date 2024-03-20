@@ -196,8 +196,8 @@
     <button onclick="downloadTXT()">Download TXT</button>
 
     <script>
-      // const API_KEY = 'zaSyD3_W1VvDbcrfxfQCxEfoSZYUz-SxAEfVoI';
-      const API_KEY = "AIzaSyDcc81DzTGOxmVbAeJaoojODGL7AkwCu3g";
+      const config = require("./config.json");
+      const API_KEY = config.API_KEY;
 
       function runPageSpeedTest() {
         const urlInput = document.getElementById("urlInput").value;
