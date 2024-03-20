@@ -125,14 +125,13 @@ pastScores.forEach(score => {
         <div class="card">
             <div class="card-header" id="heading${score.date}">
                 <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${score.date}" aria-expanded="true" aria-controls="collapse${score.date}">
-                        Score: ${score.score} - Date: ${score.date} - Device: ${score.device} - Location: ${score.location}
-                    </button>
+                    
+                   
                 </h2>
             </div>
             <div id="collapse${score.date}" class="collapse" aria-labelledby="heading${score.date}" data-parent="#collapsePreviousResults">
                 <div class="card-body">
-                    <!-- Content for each accordion item goes here -->
+                Score: ${score.score} - Date: ${score.date} - Device: ${score.device} - Location: ${score.location}
                 </div>
             </div>
         </div>
