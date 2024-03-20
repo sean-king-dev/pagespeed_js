@@ -124,41 +124,41 @@ function downloadCSV() {
 }
 
 function downloadTXT() {
-  const pastScores = JSON.parse(localStorage.getItem("pastScores")) || [];
-  if (pastScores.length === 0) {
-    alert("No past results available to download.");
-    return;
-  }
+    const pastScores = JSON.parse(localStorage.getItem('pastScores')) || [];
+    if (pastScores.length === 0) {
+        alert("No past results available to download.");
+        return;
+    }
 
-  let txtContent = "Past Results:\n";
-  pastScores.forEach((score) => {
-    txtContent += `URL: ${score.url},           
-                 Score: ${score.score}, 
-                 Date: ${score.date}, 
-                 Device: ${score.device}, 
-                 Throttling: ${score.throttling}, 
-                 Location: ${score.location}\n\n`;
+    let txtContent = "Past Results:\n";
+    pastScores.forEach(score => {
+        txtContent += `URL: ${score.url},           
+                       Score: ${score.score}, 
+                       Date: ${score.date}, 
+                       Device: ${score.device}, 
+                       Throttling: ${score.throttling}, 
+                       Location: ${score.location}\n\n`;
 
-    // Adding metric details
-    txtContent += "Metrics:\n";
-    Object.keys(score.metrics).forEach((metricKey) => {
-      const metric = score.metrics[metricKey];
-      txtContent += `${metric.title}: ${metric.value}\n`;
+        // Check if metrics is defined before iterating over it
+        if (score.metrics) {
+            txtContent += "Metrics:\n";
+            Object.keys(score.metrics).forEach(metricKey => {
+                const metric = score.metrics[metricKey];
+                txtContent += `${metric.title}: ${metric.value}\n`;
+            });
+        }
+
+        txtContent += "\n"; // Add a line break between each score
     });
 
-    txtContent += "\n"; // Add a line break between each score
-  });
-
-  const encodedUri = encodeURI(txtContent);
-  const link = document.createElement("a");
-  link.setAttribute(
-    "href",
-    "data:text/plain;charset=utf-8," + encodedUri
-  );
-  link.setAttribute("download", "past_results.txt");
-  document.body.appendChild(link);
-  link.click();
+    const encodedUri = encodeURI(txtContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", "data:text/plain;charset=utf-8," + encodedUri);
+    link.setAttribute("download", "past_results.txt");
+    document.body.appendChild(link);
+    link.click();
 }
+
 
 // Display past results on page load
 displayPastResults();
