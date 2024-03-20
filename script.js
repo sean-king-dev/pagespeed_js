@@ -120,13 +120,8 @@ function displayPastResults() {
     let pastResultsHTML = '<h2>Past Results:</h2>';
     pastScores.forEach(score => {
         pastResultsHTML += `<div class="pastResult">
-                                <p>URL: ${score.url}</p>
-                                <p>Score: ${score.score}</p>
-                                <p>Date: ${score.date}</p>
-                                <p>Device: ${score.device}</p>
-                                <p>Throttling: ${score.throttling}</p>
-                                <p>Location: ${score.location}</p>`;
-
+                              
+                                <p>Score: ${score.score} - Date: ${score.date} - Device: ${score.device}</p>`;
         // Display metrics if available
         if (score.metrics) {
             pastResultsHTML += '<p>Metrics:</p>';
