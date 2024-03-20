@@ -1,5 +1,15 @@
-const config = require("./config.json");
-const API_KEY = config.API_KEY;
+// const config = require("./config.json");
+// const API_KEY = config.API_KEY;
+
+let API_KEY;
+
+fetch('config.json')
+  .then(response => response.json())
+  .then(data => {
+    API_KEY = data.API_KEY;
+    // Now you can use API_KEY in your code
+  })
+  .catch(error => console.error('Error loading config:', error));
 
 function runPageSpeedTest() {
   const urlInput = document.getElementById("urlInput").value;
