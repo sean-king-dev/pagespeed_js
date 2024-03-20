@@ -54,7 +54,7 @@ body {
   }
 
   .pastResult p {
-    max-width: 50%;
+    width: 40%;
     border-bottom: 2px solid lightslategray;
   }
 
