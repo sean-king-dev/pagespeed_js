@@ -117,22 +117,31 @@ function displayPastResults() {
         return;
     }
 
+    let pastResultsHTML = `
+    <div class="card">
+        <div class="card-header" id="headingPreviousResults">
+            <h2 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapsePreviousResults" aria-expanded="true" aria-controls="collapsePreviousResults">
+                    Previous Results
+                </button>
+            </h2>
+        </div>
+        <div id="collapsePreviousResults" class="collapse" aria-labelledby="headingPreviousResults" data-parent="#accordion">
+            <div class="card-body">
+`;
 
-    // bootstrap style
-    let pastResultsHTML = '<div id="accordion">';
-
-pastScores.forEach((score, index) => {
+pastScores.forEach(score => {
     pastResultsHTML += `
         <div class="card">
-            <div class="card-header" id="heading${index}">
+            <div class="card-header" id="heading${score.date}">
                 <h2 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${score.date}" aria-expanded="true" aria-controls="collapse${score.date}">
                         Score: ${score.score} - Date: ${score.date} - Device: ${score.device} - Location: ${score.location}
                     </button>
                 </h2>
             </div>
             
-            <div id="collapse${index}" class="collapse" aria-labelledby="heading${index}" data-parent="#accordion">
+            <div id="collapse${score.date}" class="collapse" aria-labelledby="heading${score.date}" data-parent="#accordion">
                 <div class="card-body">
     `;
 
@@ -152,7 +161,49 @@ pastScores.forEach((score, index) => {
     `;
 });
 
-pastResultsHTML += '</div>';
+pastResultsHTML += `
+            </div>
+        </div>
+    </div>
+`;
+
+
+
+//     // broken bootstrap style
+//     let pastResultsHTML = '<div id="accordion">';
+
+// pastScores.forEach((score, index) => {
+//     pastResultsHTML += `
+//         <div class="card">
+//             <div class="card-header" id="heading${index}">
+//                 <h2 class="mb-0">
+//                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+//                         Score: ${score.score} - Date: ${score.date} - Device: ${score.device} - Location: ${score.location}
+//                     </button>
+//                 </h2>
+//             </div>
+            
+//             <div id="collapse${index}" class="collapse" aria-labelledby="heading${index}" data-parent="#accordion">
+//                 <div class="card-body">
+//     `;
+
+//     // Display metrics if available
+//     if (score.metrics) {
+//         pastResultsHTML += '<p>Metrics:</p>';
+//         Object.keys(score.metrics).forEach(metricKey => {
+//             const metric = score.metrics[metricKey];
+//             pastResultsHTML += `<p>${metric.title}: ${metric.value}</p>`;
+//         });
+//     }
+
+//     pastResultsHTML += `
+//                 </div>
+//             </div>
+//         </div>
+//     `;
+// });
+
+// pastResultsHTML += '</div>';
 
 
 
