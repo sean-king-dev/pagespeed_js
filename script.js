@@ -136,14 +136,18 @@ function downloadTXT() {
         return;
     }
 
-    let txtContent = "Past Results:\n";
+    // Get the current date
+    const currentDate = new Date().toLocaleDateString().replaceAll('/', '-');
+
+    // Get the device information
+    const device = document.getElementById("deviceSelect").value;
+
+    // Generate the filename
+    const filename = `past_results_${currentDate}_${device}.txt`;
+
+    let txtContent = "Past Results:\n\n";
     pastScores.forEach(score => {
-        txtContent += `URL: ${score.url},           
-                       Score: ${score.score}, 
-                       Date: ${score.date}, 
-                       Device: ${score.device}, 
-                       Throttling: ${score.throttling}, 
-                       Location: ${score.location}\n\n`;
+        txtContent += `URL: ${score.url},\nScore: ${score.score},\nDate: ${score.date},\nDevice: ${score.device},\nThrottling: ${score.throttling},\nLocation: ${score.location}\n\n`;
 
         // Check if metrics is defined before iterating over it
         if (score.metrics) {
@@ -157,13 +161,66 @@ function downloadTXT() {
         txtContent += "\n"; // Add a line break between each score
     });
 
-    const encodedUri = encodeURI(txtContent);
+    // Create a Blob object
+    const blob = new Blob([txtContent], { type: 'text/plain' });
+
+    // Create a temporary URL for the Blob
+    const url = URL.createObjectURL(blob);
+
+    // Create a download link
     const link = document.createElement("a");
-    link.setAttribute("href", "data:text/plain;charset=utf-8," + encodedUri);
-    link.setAttribute("download", "past_results.txt");
+    link.setAttribute("href", url);
+    link.setAttribute("download", filename);
     document.body.appendChild(link);
+
+    // Trigger a click on the link
     link.click();
+
+    // Clean up
+    URL.revokeObjectURL(url);
+    document.body.removeChild(link);
+
+    alert(`Text file saved as '${filename}'.`);
 }
+
+
+
+// previous version 
+// function downloadTXT() {
+//     const pastScores = JSON.parse(localStorage.getItem('pastScores')) || [];
+//     if (pastScores.length === 0) {
+//         alert("No past results available to download.");
+//         return;
+//     }
+
+//     let txtContent = "Past Results:\n";
+//     pastScores.forEach(score => {
+//         txtContent += `URL: ${score.url},           
+//                        Score: ${score.score}, 
+//                        Date: ${score.date}, 
+//                        Device: ${score.device}, 
+//                        Throttling: ${score.throttling}, 
+//                        Location: ${score.location}\n\n`;
+
+//         // Check if metrics is defined before iterating over it
+//         if (score.metrics) {
+//             txtContent += "Metrics:\n";
+//             Object.keys(score.metrics).forEach(metricKey => {
+//                 const metric = score.metrics[metricKey];
+//                 txtContent += `${metric.title}: ${metric.value}\n`;
+//             });
+//         }
+
+//         txtContent += "\n"; // Add a line break between each score
+//     });
+
+//     const encodedUri = encodeURI(txtContent);
+//     const link = document.createElement("a");
+//     link.setAttribute("href", "data:text/plain;charset=utf-8," + encodedUri);
+//     link.setAttribute("download", "past_results.txt");
+//     document.body.appendChild(link);
+//     link.click();
+// }
 
 
 // Display past results on page load
