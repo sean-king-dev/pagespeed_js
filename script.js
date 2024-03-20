@@ -117,22 +117,62 @@ function displayPastResults() {
         return;
     }
 
-    let pastResultsHTML = '<h2>Previous Results:</h2>';
-    pastScores.forEach(score => {
-        pastResultsHTML += `<div class="pastResult">
-                              
-                                <p>Score: ${score.score} - Date: ${score.date} - Device: ${score.device} - Location: ${score.location}</p>`;
-        // Display metrics if available
-        if (score.metrics) {
-            pastResultsHTML += '<p>Metrics:</p>';
-            Object.keys(score.metrics).forEach(metricKey => {
-                const metric = score.metrics[metricKey];
-                pastResultsHTML += `<p>${metric.title}: ${metric.value}</p>`;
-            });
-        }
 
-        pastResultsHTML += '</div>';
-    });
+    // bootstrap style
+    let pastResultsHTML = '<div id="accordion">';
+
+pastScores.forEach((score, index) => {
+    pastResultsHTML += `
+        <div class="card">
+            <div class="card-header" id="heading${index}">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+                        Score: ${score.score} - Date: ${score.date} - Device: ${score.device} - Location: ${score.location}
+                    </button>
+                </h2>
+            </div>
+            
+            <div id="collapse${index}" class="collapse" aria-labelledby="heading${index}" data-parent="#accordion">
+                <div class="card-body">
+    `;
+
+    // Display metrics if available
+    if (score.metrics) {
+        pastResultsHTML += '<p>Metrics:</p>';
+        Object.keys(score.metrics).forEach(metricKey => {
+            const metric = score.metrics[metricKey];
+            pastResultsHTML += `<p>${metric.title}: ${metric.value}</p>`;
+        });
+    }
+
+    pastResultsHTML += `
+                </div>
+            </div>
+        </div>
+    `;
+});
+
+pastResultsHTML += '</div>';
+
+
+
+    // vanilla style
+    // let pastResultsHTML = '<h2>Previous Results:</h2>';
+    // pastScores.forEach(score => {
+    //     pastResultsHTML += `<div class="pastResult">
+                              
+    //                             <p>Score: ${score.score} - Date: ${score.date} - Device: ${score.device} - Location: ${score.location}</p>`;
+    //     // Display metrics if available
+    //     if (score.metrics) {
+    //         pastResultsHTML += '<p>Metrics:</p>';
+    //         Object.keys(score.metrics).forEach(metricKey => {
+    //             const metric = score.metrics[metricKey];
+    //             pastResultsHTML += `<p>${metric.title}: ${metric.value}</p>`;
+    //         });
+    //     }
+
+    //     pastResultsHTML += '</div>';
+    // });
 
     pastResultsDiv.innerHTML = pastResultsHTML;
 }
