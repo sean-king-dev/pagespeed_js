@@ -117,19 +117,9 @@ function displayPastResults() {
         return;
     }
 
-    let pastResultsHTML = `
-    <div class="card">
-        <div class="card-header" id="headingPreviousResults">
-            <h2 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapsePreviousResults" aria-expanded="true" aria-controls="collapsePreviousResults">
-                    Previous Results
-                </button>
-            </h2>
-        </div>
-        <div id="collapsePreviousResults" class="collapse" aria-labelledby="headingPreviousResults" data-parent="#accordion">
-            <div class="card-body">
-`;
+    let pastResultsHTML = ''; // Initialize the HTML string
 
+// Loop through past scores to generate accordion items
 pastScores.forEach(score => {
     pastResultsHTML += `
         <div class="card">
@@ -140,32 +130,17 @@ pastScores.forEach(score => {
                     </button>
                 </h2>
             </div>
-            
-            <div id="collapse${score.date}" class="collapse" aria-labelledby="heading${score.date}" data-parent="#accordion">
+            <div id="collapse${score.date}" class="collapse" aria-labelledby="heading${score.date}" data-parent="#collapsePreviousResults">
                 <div class="card-body">
-    `;
-
-    // Display metrics if available
-    if (score.metrics) {
-        pastResultsHTML += '<p>Metrics:</p>';
-        Object.keys(score.metrics).forEach(metricKey => {
-            const metric = score.metrics[metricKey];
-            pastResultsHTML += `<p>${metric.title}: ${metric.value}</p>`;
-        });
-    }
-
-    pastResultsHTML += `
+                    <!-- Content for each accordion item goes here -->
                 </div>
             </div>
         </div>
     `;
 });
 
-pastResultsHTML += `
-            </div>
-        </div>
-    </div>
-`;
+// Insert the generated HTML into the accordion container
+document.querySelector("#pastResults .card-body").innerHTML = pastResultsHTML;
 
 
 
@@ -225,7 +200,7 @@ pastResultsHTML += `
     //     pastResultsHTML += '</div>';
     // });
 
-    pastResultsDiv.innerHTML = pastResultsHTML;
+    // pastResultsDiv.innerHTML = pastResultsHTML;
 }
 
 
