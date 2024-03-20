@@ -11,242 +11,82 @@ fetch('config.json')
   })
   .catch(error => console.error('Error loading config:', error));
 
-// function runPageSpeedTest() {
-//   const urlInput = document.getElementById("urlInput").value;
-//   const device = document.getElementById("deviceSelect").value;
-//   const throttling = document.getElementById("throttleSelect").value;
-//   const location = document.getElementById("locationSelect").value;
-//   const resultsDiv = document.getElementById("results");
-
-//   if (!urlInput) {
-//     resultsDiv.innerHTML = "<p>Please enter a valid URL.</p>";
-//     return;
-//   }
-
-//   resultsDiv.innerHTML = "<p>Loading...</p>";
-
-//       // Get the loading element
-//       const loadingDiv = document.querySelector('.loading');
-
-//       // Show loading text
-//       loadingDiv.innerHTML = "Loading...";
-  
-//       // Change text color to blue
-//       loadingDiv.style.color = "#007bff";
-
-//   fetch(
-//     `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(urlInput)}&key=${API_KEY}`)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       const score = (
-//         data.lighthouseResult.categories.performance.score * 100
-//       ).toFixed(2);
-//       const metrics = data.lighthouseResult.audits;
-
-//       let resultsHTML = `<p>Overall Score: ${score}</p>`;
-//       resultsHTML += `<p>Date: ${new Date().toLocaleDateString()}</p>`;
-//       resultsHTML += `<p>Device: ${device}</p>`;
-//       resultsHTML += `<p>Throttling: ${throttling}</p>`;
-//       resultsHTML += `<p>Location: ${location}</p>`;
-//       resultsHTML += "<h2>Metrics:</h2>";
-
-//       Object.keys(metrics).forEach((metricKey) => {
-//         const metric = metrics[metricKey];
-//         if (metric.numericValue !== undefined) {
-//           let value = metric.numericValue.toFixed(2);
-//           if (metric.unit === "ms") {
-//             value += " ms";
-//           } else if (metric.unit === "s") {
-//             value += " seconds";
-//           }
-//           resultsHTML += `<p>${metric.title}: ${value}</p>`;
-//         }
-//       });
-
-//       resultsDiv.innerHTML = resultsHTML;
-
-//       // Store score in local storage
-//       const pastScores =
-//         JSON.parse(localStorage.getItem("pastScores")) || [];
-//       pastScores.push({
-//         url: urlInput,
-//         score: score,
-//         date: new Date().toLocaleDateString(),
-//         device: device,
-//         throttling: throttling,
-//         location: location,
-//       });
-//       localStorage.setItem("pastScores", JSON.stringify(pastScores));
-
-//       // Update past results display
-//       displayPastResults();
-//     })
-//     .catch((error) => {
-//       console.error("Error fetching data:", error);
-//       resultsDiv.innerHTML =
-//         "<p>Error fetching data. Please try again.</p>";
-//     });
-// }
-
-
-// function runPageSpeedTest() {
-//     const urlInput = document.getElementById("urlInput").value;
-//     const device = document.getElementById("deviceSelect").value;
-//     const throttling = document.getElementById("throttleSelect").value;
-//     const location = document.getElementById("locationSelect").value;
-//     const resultsDiv = document.getElementById("results");
-//     const loadingDiv = document.querySelector('.loading');
-  
-//     if (!urlInput) {
-//       resultsDiv.innerHTML = "<p>Please enter a valid URL.</p>";
-//       return;
-//     }
-  
-//     // Show loading text
-//     loadingDiv.innerHTML = "Loading...";
-    
-//     // Change text color to blue
-//     loadingDiv.style.color = "#007bff";
-  
-//     // Fetch data...
-//     fetch(
-//       `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(urlInput)}&key=${API_KEY}`)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         const score = (
-//           data.lighthouseResult.categories.performance.score * 100
-//         ).toFixed(2);
-//         const metrics = data.lighthouseResult.audits;
-  
-//         let resultsHTML = `<p>Overall Score: ${score}</p>`;
-//         resultsHTML += `<p>Date: ${new Date().toLocaleDateString()}</p>`;
-//         resultsHTML += `<p>Device: ${device}</p>`;
-//         resultsHTML += `<p>Throttling: ${throttling}</p>`;
-//         resultsHTML += `<p>Location: ${location}</p>`;
-//         resultsHTML += "<h2>Metrics:</h2>";
-  
-//         Object.keys(metrics).forEach((metricKey) => {
-//           const metric = metrics[metricKey];
-//           if (metric.numericValue !== undefined) {
-//             let value = metric.numericValue.toFixed(2);
-//             if (metric.unit === "ms") {
-//               value += " ms";
-//             } else if (metric.unit === "s") {
-//               value += " seconds";
-//             }
-//             resultsHTML += `<p>${metric.title}: ${value}</p>`;
-//           }
-//         });
-  
-//         resultsDiv.innerHTML = resultsHTML;
-  
-//         // Store score in local storage
-//         const pastScores =
-//           JSON.parse(localStorage.getItem("pastScores")) || [];
-//         pastScores.push({
-//           url: urlInput,
-//           score: score,
-//           date: new Date().toLocaleDateString(),
-//           device: device,
-//           throttling: throttling,
-//           location: location,
-//           metrics: metrics // Adding metrics to past scores
-//         });
-//         localStorage.setItem("pastScores", JSON.stringify(pastScores));
-  
-//         // Update past results display
-//         displayPastResults();
-  
-//         // Clear loading text
-//         loadingDiv.innerHTML = "";
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching data:", error);
-//         resultsDiv.innerHTML =
-//           "<p>Error fetching data. Please try again.</p>";
-//         // Change text color to coral in case of error
-//         loadingDiv.style.color = "coral";
-//         // Clear loading text
-//         loadingDiv.innerHTML = "";
-//       });
-//   }
-
 function runPageSpeedTest() {
-    const urlInput = document.getElementById("urlInput").value;
-    const device = document.getElementById("deviceSelect").value;
-    const throttling = document.getElementById("throttleSelect").value;
-    const location = document.getElementById("locationSelect").value;
-    const resultsDiv = document.getElementById("results");
-    const loadingDiv = document.querySelector('.loading'); // Get the loading element
+  const urlInput = document.getElementById("urlInput").value;
+  const device = document.getElementById("deviceSelect").value;
+  const throttling = document.getElementById("throttleSelect").value;
+  const location = document.getElementById("locationSelect").value;
+  const resultsDiv = document.getElementById("results");
 
-    if (!urlInput) {
-        resultsDiv.innerHTML = "<p>Please enter a valid URL.</p>";
-        return;
-    }
+  if (!urlInput) {
+    resultsDiv.innerHTML = "<p>Please enter a valid URL.</p>";
+    return;
+  }
 
-    // Show loading text
-    loadingDiv.innerHTML = "Loading...";
+  resultsDiv.innerHTML = "<p>Loading...</p>";
+
+      // Get the loading element
+      const loadingDiv = document.querySelector('.loading');
+
+      // Show loading text
+      loadingDiv.innerHTML = "Loading...";
   
-    // Change text color to blue
-    loadingDiv.style.color = "#007bff";
+      // Change text color to blue
+      loadingDiv.style.color = "#007bff";
 
-    fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(urlInput)}&key=${API_KEY}`)
-        .then((response) => response.json())
-        .then((data) => {
-            const score = (data.lighthouseResult.categories.performance.score * 100).toFixed(2);
-            const metrics = data.lighthouseResult.audits;
+  fetch(
+    `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(urlInput)}&key=${API_KEY}`)
+    .then((response) => response.json())
+    .then((data) => {
+      const score = (
+        data.lighthouseResult.categories.performance.score * 100
+      ).toFixed(2);
+      const metrics = data.lighthouseResult.audits;
 
-            let resultsHTML = `<p>Overall Score: ${score}</p>`;
-            resultsHTML += `<p>Date: ${new Date().toLocaleDateString()}</p>`;
-            resultsHTML += `<p>Device: ${device}</p>`;
-            resultsHTML += `<p>Throttling: ${throttling}</p>`;
-            resultsHTML += `<p>Location: ${location}</p>`;
-            resultsHTML += "<h2>Metrics:</h2>";
+      let resultsHTML = `<p>Overall Score: ${score}</p>`;
+      resultsHTML += `<p>Date: ${new Date().toLocaleDateString()}</p>`;
+      resultsHTML += `<p>Device: ${device}</p>`;
+      resultsHTML += `<p>Throttling: ${throttling}</p>`;
+      resultsHTML += `<p>Location: ${location}</p>`;
+      resultsHTML += "<h2>Metrics:</h2>";
 
-            Object.keys(metrics).forEach((metricKey) => {
-                const metric = metrics[metricKey];
-                if (metric.numericValue !== undefined) {
-                    let value = metric.numericValue.toFixed(2);
-                    if (metric.unit === "ms") {
-                        value += " ms";
-                    } else if (metric.unit === "s") {
-                        value += " seconds";
-                    }
-                    resultsHTML += `<p>${metric.title}: ${value}</p>`;
-                }
-            });
+      Object.keys(metrics).forEach((metricKey) => {
+        const metric = metrics[metricKey];
+        if (metric.numericValue !== undefined) {
+          let value = metric.numericValue.toFixed(2);
+          if (metric.unit === "ms") {
+            value += " ms";
+          } else if (metric.unit === "s") {
+            value += " seconds";
+          }
+          resultsHTML += `<p>${metric.title}: ${value}</p>`;
+        }
+      });
 
-            resultsDiv.innerHTML = resultsHTML;
+      resultsDiv.innerHTML = resultsHTML;
 
-            // Store score in local storage
-            const pastScores = JSON.parse(localStorage.getItem("pastScores")) || [];
-            pastScores.push({
-                url: urlInput,
-                score: score,
-                date: new Date().toLocaleDateString(),
-                device: device,
-                throttling: throttling,
-                location: location,
-            });
-            localStorage.setItem("pastScores", JSON.stringify(pastScores));
+      // Store score in local storage
+      const pastScores =
+        JSON.parse(localStorage.getItem("pastScores")) || [];
+      pastScores.push({
+        url: urlInput,
+        score: score,
+        date: new Date().toLocaleDateString(),
+        device: device,
+        throttling: throttling,
+        location: location,
+      });
+      localStorage.setItem("pastScores", JSON.stringify(pastScores));
 
-            // Update past results display
-            displayPastResults();
-
-            // Clear loading text and change text color to initial
-            loadingDiv.innerHTML = "";
-            loadingDiv.style.color = "#007bff";
-        })
-        .catch((error) => {
-            console.error("Error fetching data:", error);
-            resultsDiv.innerHTML = "<p>Error fetching data. Please try again.</p>";
-
-            // Clear loading text and change text color to indicate error
-            loadingDiv.innerHTML = "<p>Error loading data</p>";
-            loadingDiv.style.color = "coral";
-        });
+      // Update past results display
+      displayPastResults();
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+      resultsDiv.innerHTML =
+        "<p>Error fetching data. Please try again.</p>";
+    });
 }
-
   
 
 runPageSpeedTest();
