@@ -54,8 +54,8 @@ body {
   }
 
   .pastResult p {
-    width: 100%;
-    border-bottom: 2px skyblue;
+    width: 35%;
+    border-bottom: 2px solid lightslategray;
   }
 
   h2 {
