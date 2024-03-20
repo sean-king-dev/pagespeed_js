@@ -117,7 +117,7 @@ function displayPastResults() {
         return;
     }
 
-    let pastResultsHTML = '<h2>Past Results:</h2>';
+    let pastResultsHTML = '<h2>Previous Results:</h2>';
     pastScores.forEach(score => {
         pastResultsHTML += `<div class="pastResult">
                               
