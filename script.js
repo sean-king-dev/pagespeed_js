@@ -7,14 +7,15 @@ fetch('config.json')
   .then(response => response.json())
   .then(data => {
     API_KEY = data.API_KEY;
-    // Now you can use API_KEY in your code
   })
   .catch(error => console.error('Error loading config:', error));
 
 function runPageSpeedTest() {
   const urlInput = document.getElementById("urlInput").value;
   const device = document.getElementById("deviceSelect").value;
-  const throttling = document.getElementById("throttleSelect").value;
+  const throttleType = document.getElementById("throttleSelect").value;
+  const networkType = document.getElementById("networkSelect").value;
+  // const throttling = document.getElementById("throttleSelect").value;
   const location = document.getElementById("locationSelect").value;
   const resultsDiv = document.getElementById("results");
 
@@ -25,14 +26,14 @@ function runPageSpeedTest() {
 
   resultsDiv.innerHTML = "<p>Loading...</p>";
 
-      // Get the loading element
       const loadingDiv = document.querySelector('.loading');
-
-      // Show loading text
       loadingDiv.innerHTML = "Loading...";
-  
-      // Change text color to blue
       loadingDiv.style.color = "#007bff";
+
+      let throttling = throttleType;
+      if (throttleType !== 'no-throttle') {
+        throttling += `.${networkType}`; // Append network type if throttling is not 'no-throttle'
+      }
 
   fetch(
     `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(urlInput)}&key=${API_KEY}`)
